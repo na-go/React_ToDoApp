@@ -22,7 +22,6 @@ const initialTask:Task[] = [
 const App: VFC = () => {
   const [tasks, setTasks] = useState<Task[]>(initialTask)
   const [inputTitle, setInputTitle] = useState<string>(' ')
-  const [doneTask, setDoneTask] = useState<boolean>(false)
   const [showModal, setShowModal] = useState<boolean>(false)
   const [countId, setCountId] = useState<number>(tasks.length + 1)
 
