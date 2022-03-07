@@ -38,11 +38,6 @@ const App: VFC = () => {
   }
 
   const handleDone = (task: Task) => {
-    setTasks(prev => prev.map(t =>
-        t.id === task.id
-            ? { ...task, done: !task.done }
-            : t
-    ))
   }
 
   const handleEdit = () => {
