@@ -1,10 +1,5 @@
 import React, { useState, VFC } from 'react'
-
-type Task = {
-    id: number
-    title: string
-    done: boolean
-}
+import { Task } from './type'
 
 const initialTask:Task[] = [
   {
