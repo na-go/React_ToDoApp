@@ -1,6 +1,7 @@
 import React, { useState, VFC } from 'react'
 import { Task } from './type'
 import { InputBar } from './component/input_bar'
+import { EditModal } from './component/edit_modal'
 
 const initialTask:Task[] = [
   {
@@ -18,7 +19,7 @@ const initialTask:Task[] = [
 const App: VFC = () => {
   const [tasks, setTasks] = useState<Task[]>(initialTask)
   const [inputTitle, setInputTitle] = useState<string>(' ')
-  const [showModal, setShowModal] = useState<boolean>(false)
+  const [showModal, setShowModal] = useState<Task | undefined>()
   const [countId, setCountId] = useState<number>(tasks.length + 1)
 
   const handleSubmit = () => {
@@ -29,35 +30,16 @@ const App: VFC = () => {
     }
     setTasks([newTask, ...tasks])
     setInputTitle('')
-    setCountId(countId + 1)
+    setCountId(tasks.length + 1)
   }
 
   const handleDone = (task: Task) => {
   }
 
-  const handleEdit = () => {
-    setShowModal(true)
+  const openEdit = (task:Task) => {
+    setShowModal(task)
   }
 
-  const Modal = () => {
-    return (
-      <>
-      {showModal &&
-        <div id="overlay">
-          <div id="modalContent">
-            <p>修正を記述してください</p>
-            <input
-              type="text"
-              className='edit-input'
-              onClick={() => handleEdit()}
-            ></input>
-            <button onClick={() => setShowModal(false)}>Close</button>
-          </div>
-        </div>
-      }
-      </>
-    )
-  }
 
 
   return (
@@ -88,7 +70,7 @@ const App: VFC = () => {
                 <span className="checkbox-label">{ task.title }</span>
               </label>
               <button
-                onClick={() => handleEdit()}
+                onClick={() => openEdit(task)}
                 className="btn-edit"
               >
                 編集
@@ -97,7 +79,14 @@ const App: VFC = () => {
           ))}
         </ul>
         }
-        <Modal />
+        <EditModal
+          tasks={tasks}
+          setTasks={setTasks}
+          showModal={showModal}
+          setShowModal={setShowModal}
+          inputTitle={inputTitle}
+          setInputTitle={setInputTitle}
+        />
 
       </div>
     </div>
