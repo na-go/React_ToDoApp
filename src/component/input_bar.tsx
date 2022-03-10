@@ -1,18 +1,15 @@
 import React, { useState, VFC, SetStateAction, Dispatch, } from 'react'
 import { Task } from '../type'
 
-interface InputBar{
+interface InputBarProps{
   inputTitle:string,
   setInputTitle:Dispatch<SetStateAction<string>>,
   handleSubmit: () => void,
   task:Task[]
 }
 
-export const InputBar:InputBar = (
-  inputTitle:string,
-  setInputTitle:Dispatch<SetStateAction<string>>,
-  handleSubmit:() => void,
-  tasks:Task[]
+export const InputBar = (
+  props: InputBarProps
   ) => {
 
   return (
@@ -20,12 +17,12 @@ export const InputBar:InputBar = (
       <input
         type="text"
         className="input-task"
-        value={inputTitle}
-        onChange={(e) => {setInputTitle(e.target.value)}}
+        value={props.inputTitle}
+        onChange={(e) => {props.setInputTitle(e.target.value)}}
         placeholder="TODO入力欄"
       />
-      <button className='input-button' onClick={handleSubmit}>追加する</button>
-      <button onClick={() => {console.log(tasks)}}>確認</button>
+      <button className='input-button' onClick={props.handleSubmit}>追加する</button>
+      <button onClick={() => {console.log(props.task)}}>確認</button>
     </div>
   )
 }
