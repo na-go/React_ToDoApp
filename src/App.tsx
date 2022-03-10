@@ -1,5 +1,6 @@
 import React, { useState, VFC } from 'react'
 import { Task } from './type'
+import { InputBar } from './component/input_bar'
 
 const initialTask:Task[] = [
   {
@@ -65,17 +66,12 @@ const App: VFC = () => {
         To-Do あぷり
       </header>
 
-      <div className='input-bar'>
-        <input
-          type="text"
-          className="input-task"
-          value={inputTitle}
-          onChange={(e) => {setInputTitle(e.target.value)}}
-          placeholder="TODO入力欄"
-        />
-        <button className='input-button' onClick={handleSubmit}>追加する</button>
-        <button onClick={() => {console.log(tasks)}}>確認</button>
-      </div>
+      <InputBar
+        inputTitle={inputTitle}
+        setInputTitle={setInputTitle}
+        handleSubmit={handleSubmit}
+        task={tasks}
+      />
       <div className='inner'>
         {tasks.length <= 0 ? '何も登録されてないよ' :
         <ul className="task-list">
