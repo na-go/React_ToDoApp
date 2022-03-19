@@ -1,4 +1,4 @@
-import React, { useState, VFC, SetStateAction, Dispatch, } from 'react'
+import React, { SetStateAction, Dispatch, } from 'react'
 import { Task } from '../type'
 
 interface InputBarProps{

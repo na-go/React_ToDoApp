@@ -23,7 +23,7 @@ const App: VFC = () => {
   const [countId, setCountId] = useState<number>(tasks.length + 1)
 
   const handleSubmit = () => {
-    const newTask = {
+    const newTask:Task = {
       id: countId,
       title: inputTitle,
       done: false
