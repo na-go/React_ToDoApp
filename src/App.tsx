@@ -36,7 +36,7 @@ const App: VFC = () => {
   }
 
   const handleEdit = (showModal: Task) => {
-      const editedTask: Task[] = tasks.map((task:Task) => {
+      const editedTasks: Task[] = tasks.map((task:Task) => {
         if (task.id === showModal.id) {
           const editTask:Task = {
             id: showModal.id,
@@ -47,7 +47,7 @@ const App: VFC = () => {
         }
         return task
       })
-      setTasks([...editedTask])
+      setTasks([...editedTasks])
       setEditTitle('')
       setShowModal(undefined)
     }
