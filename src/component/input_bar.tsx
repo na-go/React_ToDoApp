@@ -22,7 +22,6 @@ export const InputBar = (
         placeholder="TODO入力欄"
       />
       <button className='input-button' onClick={props.handleSubmit}>追加する</button>
-      <button onClick={() => {console.log(props.task)}}>確認</button>
     </div>
   )
 }

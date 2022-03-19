@@ -1,4 +1,4 @@
-import React, { useState, VFC } from 'react'
+import React, { useEffect, useState, VFC } from 'react'
 import { Task } from './type'
 import { InputBar } from './component/input_bar'
 
@@ -17,8 +17,9 @@ const initialTask:Task[] = [
 
 const App: VFC = () => {
   const [tasks, setTasks] = useState<Task[]>(initialTask)
-  const [inputTitle, setInputTitle] = useState<string>(' ')
-  const [showModal, setShowModal] = useState<boolean>(false)
+  const [inputTitle, setInputTitle] = useState<string>('')
+  const [editTitle, setEditTitle] = useState<string>('')
+  const [showModal, setShowModal] = useState<Task | undefined>()
   const [countId, setCountId] = useState<number>(tasks.length + 1)
 
   const handleSubmit = () => {
@@ -29,35 +30,38 @@ const App: VFC = () => {
     }
     setTasks([newTask, ...tasks])
     setInputTitle('')
-    setCountId(countId + 1)
   }
 
   const handleDone = (task: Task) => {
   }
 
-  const handleEdit = () => {
-    setShowModal(true)
-  }
+  const handleEdit = (showModal: Task) => {
+      const editedTask: Task[] = tasks.map((task:Task) => {
+        if (task.id === showModal.id) {
+          const editTask:Task = {
+            id: showModal.id,
+            title: editTitle,
+            done: false
+          }
+          return editTask
+        }
+        return task
+      })
+      setTasks([...editedTask])
+      setEditTitle('')
+      setShowModal(undefined)
+    }
 
-  const Modal = () => {
-    return (
-      <>
-      {showModal &&
-        <div id="overlay">
-          <div id="modalContent">
-            <p>修正を記述してください</p>
-            <input
-              type="text"
-              className='edit-input'
-              onClick={() => handleEdit()}
-            ></input>
-            <button onClick={() => setShowModal(false)}>Close</button>
-          </div>
-        </div>
-      }
-      </>
-    )
-  }
+    const handleDelete = (choosedTask:Task) => {
+      const afterDeleteTasks:Task[] = tasks.filter(task =>
+        task.id !== choosedTask.id)
+      setTasks(afterDeleteTasks)
+      setShowModal(undefined)
+    }
+
+useEffect(() => {
+  setCountId(tasks.length + 1)
+})
 
 
   return (
@@ -76,8 +80,8 @@ const App: VFC = () => {
         {tasks.length <= 0 ? '何も登録されてないよ' :
         <ul className="task-list">
           ToDo一覧だよ
-          {tasks.map((task) => (
-            <li className='task-id`${task.id}`'>
+          {tasks.map((task,key) => (
+            <li key={key} className={'task-id'}>
                 <input
                     type="checkbox"
                     className="checkbox-input"
@@ -88,7 +92,7 @@ const App: VFC = () => {
                 <span className="checkbox-label">{ task.title }</span>
               </label>
               <button
-                onClick={() => handleEdit()}
+                onClick={() => setShowModal(task)}
                 className="btn-edit"
               >
                 編集
@@ -97,7 +101,24 @@ const App: VFC = () => {
           ))}
         </ul>
         }
-        <Modal />
+
+        {showModal &&
+        <div id="overlay">
+          <div id="modalContent">
+            <p>修正を記述してください</p>
+            <input
+              type="text"
+              className='edit-input'
+              value={editTitle}
+              defaultValue={showModal.title}
+              onChange={(e) => {setEditTitle(e.target.value)}}
+            />
+            <button onClick={() => handleEdit(showModal)}>変更</button>
+            <button onClick={() => handleDelete(showModal)}>削除</button>
+            <button onClick={() => setShowModal(undefined)}>やめる</button>
+          </div>
+        </div>
+      }
 
       </div>
     </div>
