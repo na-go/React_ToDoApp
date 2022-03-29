@@ -1,6 +1,7 @@
 import React, { useEffect, useState, VFC } from 'react'
 import { Task } from './type'
 import { InputBar } from './component/input_bar'
+import { Auth0Provider } from '@auth0/auth0-react'
 
 const initialTask: Task[] = [
   {
