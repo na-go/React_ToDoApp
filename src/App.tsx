@@ -2,6 +2,9 @@ import React, { useEffect, useState, VFC } from 'react'
 import { Task } from './type'
 import { InputBar } from './component/input_bar'
 import { Auth0Provider } from '@auth0/auth0-react'
+import LoginButton from './auth0/login'
+import LogoutButton from './auth0/logout';
+import Profile from './auth0/profile'
 
 const initialTask: Task[] = [
   {
@@ -75,6 +78,9 @@ const App: VFC = () => {
 
   return (
     <div className="App">
+      <LoginButton/>
+      <LogoutButton/>
+      <Profile />
       <header className="App-header">
         To-Do あぷり
       </header>

@@ -4,9 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Auth0Provider } from '@auth0/auth0-react';
-import LoginButton from './auth0/login'
-import LogoutButton from './auth0/logout';
-import Profile from './auth0/profile'
 
 ReactDOM.render(
   <Auth0Provider
@@ -14,9 +11,6 @@ ReactDOM.render(
     clientId="Y2BWGAzhg1QAezXcAKJbd21JB5tmQqEx"
     redirectUri={window.location.origin}
   >
-    <LoginButton/>
-    <LogoutButton/>
-    <Profile />
     <App />
   </Auth0Provider>,
   document.getElementById('root')
